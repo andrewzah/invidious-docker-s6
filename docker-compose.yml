@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:12.5-alpine
+    environment:
+      POSTGRES_USER: 'kemal'
+      POSTGRES_PASSWORD: 'kemal'
+      POSTGRES_DB: 'invidious'
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+    restart: unless-stopped
+
+  invidious:
+    image: andrewzah/invidious:0.20.1-alpine3.13
+    environment:
+      INVIDIOUS_CONFIG_FILE: /config/invidious.yml
+    ports:
+      - "3001:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - "./invidious.example.yml:/config/invidious.yml:ro"
+    restart: unless-stopped

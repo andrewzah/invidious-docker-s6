@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+
+set -eux
+set -o pipefail
+
+cd /app
+
+exec s6-setuidgid abc /usr/bin/invidious

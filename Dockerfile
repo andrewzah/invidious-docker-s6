@@ -30,6 +30,7 @@ WORKDIR /app
 RUN apk update --no-cache \
   && apk add --no-cache \
     bash \
+    curl \
     librsvg \
     ttf-opensans
 
